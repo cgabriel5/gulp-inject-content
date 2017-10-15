@@ -1,0 +1,14 @@
+{
+    "name": "gulp-inject-content",
+    "version": "0.0.1",
+    "description": "Inject file or variable content into file.",
+    "main": "index.js",
+    "license": "MIT",
+    "private": true,
+    "devDependencies": {
+        "file-exists": "^5.0.0",
+        "glob": "^7.1.2",
+        "gulp-util": "^3.0.8",
+        "through2": "^2.0.3"
+    }
+}
