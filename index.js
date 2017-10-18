@@ -29,7 +29,9 @@ function injector(replacements, type) {
             // patterns to look for
             // $:pre{filename}  or $:pre{$varname}
             // $:post{filename} or $:post{$varname}
-            var pattern = new RegExp(`\\$:${type}\\{\\$?[\\w\\d-_]+\\}`, "gi");
+            // ${filename} or ${$varname} // any time replacement
+            if (type) type = ":" + type;
+            var pattern = new RegExp(`\\$${type || ""}\\{\\$?[\\w\\d-_]+\\}`, "gi");
             // get current working directory
             var cwd = process.cwd();
 
@@ -38,7 +40,7 @@ function injector(replacements, type) {
 
             contents = contents.replace(pattern, function(match) {
                 // clean the match (injection-name)
-                var iname = match.replace(/\$\:(pre|post)\{|\}$/g, "");
+                var iname = match.replace(/\$(:pre|:post)?\{|\}$/g, "");
 
                 // check whether doing a file or variable injection
                 if (iname.charAt(0) !== "$") { // file content-injection
@@ -54,7 +56,7 @@ function injector(replacements, type) {
                         .trim();
                 } else { //variable content-injection
                     // lookup replacement from the provide replacements object
-                    return replacements[iname.replace(/^\$/, "")] || undefined;
+                    return replacements[iname.replace(/^\$/, "")];
                 }
 
                 // return match as default...
