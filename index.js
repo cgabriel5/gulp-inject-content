@@ -21,7 +21,7 @@ function injector(options) {
 		// the location of the injectable files
 		directory: "html/injection/",
 		replacements: {}, // the variable replacements
-		type: "pre", // pre|post
+		type: "", // pre|post
 		// match filename exactly (take extension into consideration)
 		exact: true,
 		// cache file contents to speed up performance
